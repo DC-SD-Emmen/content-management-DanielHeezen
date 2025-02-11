@@ -1,0 +1,26 @@
+body{
+    background-color: grey;
+}
+
+#form-Container{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: 100px;
+    margin-left: 25%;
+    margin-top: 100px;
+    border-radius: 30px;
+    border-style: solid;
+    justify-content: center;
+    padding: 5%;
+    gap: 10px;
+    background-color: dimgrey;
+}
+
+#form-Container input{
+    margin-top: 10px;
+    padding: 2%;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 10px;
+}
