@@ -1,13 +1,12 @@
-
 <?php
-class Database {
-    private $servername = "mysql";  
+class UserDatabase {
+    private $servername = "mysql";
     private $username = "root";
     private $password = "root";
-    private $dbname = "gamelibrary";
+    private $dbname = "user_login";
     private $conn;
 
-    
+
     public function __construct() {
         try {
             $this->conn = new PDO("mysql:host=$this->servername;dbname=$this->dbname;", $this->username, $this->password);
