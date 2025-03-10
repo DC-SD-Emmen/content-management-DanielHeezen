@@ -42,7 +42,11 @@ body {
 #form-Container form {
     margin-top: -50px;
 }
-
+#toggle {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+}
 #toggle button {
     margin-top: 10px;
     padding: 20px;
@@ -58,4 +62,6 @@ body {
 #errorMessage {
     color: white;
     font-weight: bolder;
+    text-align: center;
+    margin-top: 20px;
 }

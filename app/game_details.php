@@ -1,25 +1,65 @@
+<?php
+
+session_start();
+
+
+spl_autoload_register(function ($class_name) {
+    include "classes/" . $class_name . ".php";
+});
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+// Handle logout functionality
+    if (isset($_POST['log_out'])) {
+        session_unset();
+        session_destroy();
+        header("Location: login.php");
+        exit();
+    }
+
+    $db = new Database();
+    $userManager = new UserManager($db->getConnection());
+
+    if (isset($_POST['add'])) {
+        echo("hallo");
+        if (isset($_GET['id'])) {
+            // get the game ID as a string
+            $game_id = $_GET['id'];
+            // check if its an integer
+            $game_id = filter_var($game_id, FILTER_SANITIZE_NUMBER_INT);
+            if (isset($_SESSION['user_id'])) {
+                // Get the user ID from the session
+                $user_id = (string)$_SESSION['user_id'];
+
+                $userManager->insertMyGame($user_id, $game_id);
+            }
+        }
+    }
+}
+?>
 <html>
 <head>
-       <meta charset="UTF-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <title>Drenthe College docker web server</title>
-       <link rel="stylesheet" href="mainStylesheet.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drenthe College docker web server</title>
+    <link rel="stylesheet" href="mainStylesheet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="java.js"></script>
 </head>
 <body>
 
 
-<?php
 
-spl_autoload_register(function($class_name) {
-    include "classes/" . $class_name . ".php";
-});
-
-?>
 
 
 <div id= "backgroundContainer">
 
     <div id= "header">
+        <div id="toggle">
+            <form method="POST">
+                <button id="logOut" type="submit" name="log_out">Log Out</button>
+            </form>
+        </div>
         <h1> Game Library </h1>
         <h3> Ziet er slecht uit toch? </h3>
     </div>
@@ -40,11 +80,9 @@ spl_autoload_register(function($class_name) {
         <div id= "gameDetails">
 
             <div id="go-back">
-                <a href="http://localhost/index.php">
                 <div class="back-button">
                     <h2> < Back </h2>
                 </div>
-                </a>
             </div>
 
 
@@ -92,10 +130,11 @@ spl_autoload_register(function($class_name) {
 
                 $conn->close();
                 ?>
-
-
+            <div id="wishlist">
+                <form method="POST">
+                    <button id="add" type="submit" name="add">Add To Wishlist</button>
+                </form>
             </div>
-
         </div>
     </div>
 </div>
@@ -103,6 +142,4 @@ spl_autoload_register(function($class_name) {
 
 </body>
 </html>
-
-
 

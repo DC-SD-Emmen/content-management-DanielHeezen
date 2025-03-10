@@ -3,8 +3,8 @@
 class GameManager {
     private $conn;
 
-    public function __construct(Database $db){
-        $this->conn = $db->getConnection();
+    public function __construct($conn){
+        $this->conn = $conn;
     }
 
     // Insert form data into the database
@@ -101,7 +101,7 @@ class GameManager {
       if ($stmt) {
           // Fetch all results as associative arrays
           //de resultset wordt in een assocatieve array gezet
-          //dit doet we, zodat we makkelijker door de data heen kunnen loopen
+          //dit doen we, zodat we makkelijker door de data heen kunnen loopen
           $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
   
           // Iterate through each result and create a new Game object
@@ -116,8 +116,7 @@ class GameManager {
       return $games;
   }
 
+
 }
   
 ?>
-
-

@@ -1,39 +1,39 @@
 <?php
 
-    session_start();
+session_start();
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Handle logout functionality
-        if (isset($_POST['log_out'])) {
-            session_unset();
-            session_destroy();
-            header("Location: login.php");
-            exit();
-        }
-    }
-    if (!isset($_SESSION['username']) || $_SESSION['username'] == "") {
-        header('Location: login.php');
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Handle logout functionality
+    if (isset($_POST['log_out'])) {
+        session_unset();
+        session_destroy();
+        header("Location: login.php");
         exit();
     }
+}
+if (!isset($_SESSION['username']) || $_SESSION['username'] == "") {
+    header('Location: login.php');
+    exit();
+}
 
-    spl_autoload_register(function($class_name) {
-        include "classes/" . $class_name . ".php";
-    });
+spl_autoload_register(function($class_name) {
+    include "classes/" . $class_name . ".php";
+});
 
-    //het maken van een nieuwe database instantie voert ook direct de __construct() functie uit
-    $db = new Database();
-    $gm = new GameManager($db->getConnection());
-    $userManager = new UserManager($db->getConnection());
+//het maken van een nieuwe database instantie voert ook direct de __construct() functie uit
+$db = new Database();
+$gm = new GameManager($db->getConnection());
+$userManager = new UserManager($db->getConnection());
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Handle file upload and form data insertion
-        if (isset($_FILES['photo'])) {
-            // Handle the file upload and store the file path
-            $filePath = $gm->fileuload($_FILES['photo']);
-            // Handle the form data insertion, including the file path
-            $gm->insert($_POST, $_FILES['photo']['name']);
-        }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Handle file upload and form data insertion
+    if (isset($_FILES['photo'])) {
+        // Handle the file upload and store the file path
+        $filePath = $gm->fileuload($_FILES['photo']);
+        // Handle the form data insertion, including the file path
+        $gm->insert($_POST, $_FILES['photo']['name']);
     }
+}
 
 ?>
 
@@ -54,7 +54,7 @@
     <div id= "header">
         <div id="toggle">
             <form method="POST">
-                <button id="myLibrary" type="submit" name="myLibrary">My Library</button>
+                <button id="myLibrary" type="submit" name="myLibrary">Main Library</button>
                 <button id="logOut" type="submit" name="log_out">Log Out</button>
             </form>
         </div>
@@ -62,11 +62,11 @@
         <h3> Ziet er slecht uit toch? </h3>
     </div>
 
-   
+
     <div id= "games">
 
 
-    <!-- --------------------LEFT BOX-------------------- -->
+        <!-- --------------------LEFT BOX-------------------- -->
         <div id= "addGameContainer">
             <div id="addGameText">
                 <h2>Add Game</h2>
@@ -101,31 +101,29 @@
                 </div>
             </form>
         </div>
-    <!-- ------------------------------------------------ -->
+        <!-- ------------------------------------------------ -->
 
-    <!-- --------------------RIGHT BOX-------------------- -->
+        <!-- --------------------RIGHT BOX-------------------- -->
         <div class="library">
-        
+
             <?php
 
-                $games = $gm->getAllGames();
+            $games = $userManager->getMyGames();
 
-                foreach($games as $game) {
-                    echo "<a href='game_details.php?id=" . $game->get_id() . "'>
+            foreach ($games as $game) {
+                echo "<a href='game_details.php?id=" . $game->get_id() . "'>
                     <div id='game-boxes'>
                     <img class='game-image' src='uploads/" . $game->get_photo() . "'>
                     <h1>" . $game->get_title() . "</h1>
                     </div>
                     </a>";
-                
-                }
+            }
 
             ?>
-        
-        </div>
 
-     <!-- ------------------------------------------------ -->
-      
+        </div>
+        <!-- ------------------------------------------------ -->
+
     </div>
 </div>
 

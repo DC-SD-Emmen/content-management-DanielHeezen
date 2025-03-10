@@ -1,9 +1,33 @@
 <?php
-    session_start();
     $host = "mysql";
     $dbname = "my-wonderful-website";
     $charset = "utf8";
     $port = "3306";
+
+
+spl_autoload_register(function ($class_name) {
+    include __DIR__ . "/classes/" . $class_name . ".php";
+});
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    $database = new UserDatabase();
+    $um = new UserManager($database->getConnection());
+
+    if (isset($_POST['submit']) && $_POST['submit'] === 'Log In') {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $um->Login(['username' => $username, 'password' => $password]);
+
+    } elseif (isset($_POST['submit']) && $_POST['submit'] === 'Sign Up') {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+//        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $um->insert(['username' => $username, 'password' => $password]);
+    }
+}
+
 ?>
 
 <html>
@@ -17,12 +41,6 @@
 <body>
 <iframe height="80px" width="300px" frameborder="0" src=https://livecounts.io/embed/youtube-live-subscriber-counter/UCojBmluqa5vb6oTHKqIMh6g style="border: 0; width:300px; height:80px;"></iframe>
 <iframe height="80px" width="300px" frameborder="0" src=https://livecounts.io/embed/youtube-live-subscriber-counter/UCW8Y4FvpRw0qEamIzdYSakA style="border: 0; width:300px; height:80px;"></iframe>
-    <?php
-    spl_autoload_register(function($class_name) {
-        include __DIR__ . "/classes/" . $class_name . ".php";
-    });
-
-    ?>
 
     <div id="toggle">
         <button id="logIn" style="display: none">Log In</button>
@@ -46,27 +64,6 @@
             <div><input class="password" name="password" type="password" placeholder="Password" required></div>
             <div><input class="submit" name="submit" type="submit" value="Sign Up" ></div>
         </form>
-    </div>
-
-    <div id="errorMessage">
-        <?php
-
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                // Get POST data
-                $username = $_POST['username'];
-                $password = $_POST['password'];
-
-                $database = new UserDatabase();
-                $userManager = new UserManager($database);
-
-                if (isset($_POST['submit']) && $_POST['submit'] === 'Log In') {
-                    $userManager->Login(['username' => $username, 'password' => $password]);
-                }
-                elseif (isset($_POST['submit']) && $_POST['submit'] === 'Sign Up') {
-                    $userManager->insert(['username' => $username, 'password' => $password]);
-                }
-            }
-        ?>
     </div>
 
 </body>
