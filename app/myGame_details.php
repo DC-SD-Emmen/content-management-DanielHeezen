@@ -71,9 +71,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div id="editGameText">
                 <h2>Edit Game</h2>
             </div>
-            <form method="POST">
-                <input class="delete" type="submit" name="delete" value="Unwishlist" >
-            </form>
+            <div id="delete">
+                <form method="POST">
+                    <input class="delete" type="submit" name="delete" value="Unwishlist" >
+                </form>
+            </div>
         </div>
 
 

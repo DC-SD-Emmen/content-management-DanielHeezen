@@ -63,6 +63,7 @@ margin-top: -20px;
     grid-column-end: span 3;
     border-radius: 20px;
     padding: 20px;
+    overflow-y: auto;
 }
 @media only screen and (max-width: 1450px) {
     .library {
@@ -200,13 +201,13 @@ img {
 }
 
 
-#gameDetails > #wishlist {
+#addGameContainer > #wishlist {
     display: flex;
-    flex-direction: row-reverse;
+    justify-content: center;
     width: 100%;
 }
-#gameDetails > #wishlist button{
-    margin-top: -20px;
+#addGameContainer > #wishlist button{
+    margin-top: 240px;
     padding: 20px;
     box-sizing: border-box;
     border-radius: 100px;
@@ -235,11 +236,14 @@ img {
     background-image: linear-gradient(to right, #329664, #326496);
 }
 
-
+#addGameContainer > #delete {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
 .delete {
     color: white;
     background-color: red;
     font-size: 30px;
     border-radius: 15px;
-    margin-left: 15px;
 }

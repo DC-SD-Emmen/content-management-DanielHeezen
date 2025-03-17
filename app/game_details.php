@@ -88,9 +88,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div id="editGameText">
                 <h2>Edit Game</h2>
             </div>
-            <form method="POST">
-                <input class="delete" type="submit" name="delete" value="Delete game" >
-            </form>
+            <div id="delete">
+                <form method="POST">
+                    <input class="delete" type="submit" name="delete" value="Delete game" >
+                </form>
+            </div>
+            <div id="wishlist">
+                <form method="POST">
+                    <button id="add" type="submit" name="add">Add To Wishlist</button>
+                </form>
+            </div>
         </div>
 
 
@@ -146,12 +153,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $conn->close();
                 ?>
-
-            <div id="wishlist">
-                <form method="POST">
-                    <button id="add" type="submit" name="add">Add To Wishlist</button>
-                </form>
-            </div>
         </div>
     </div>
 </div>
