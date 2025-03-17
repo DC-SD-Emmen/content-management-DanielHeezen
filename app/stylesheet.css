@@ -1,18 +1,19 @@
 body {
     background-image: repeating-linear-gradient(70deg, #28283c 0%, #1e1e28 15%, #28283c 30%);
-    text-shadow: 4px 4px 15px rgba(0, 0, 0, 0.6); /* Adds a glowing effect */
+    text-shadow: 4px 4px 15px rgba(0, 0, 0, 0.6);
 }
 
 #form-Container{
     text-align: center;
-    width: 30%;
-    height: 150px;
-    margin-left: 30%;
+    width: calc(20% + 200px);
+    height: 250px;
+    margin-left: calc(35% - 100px);
     margin-top: 100px;
     border-radius: 30px;
     border-style: solid;
     justify-content: center;
-    padding: 5%;
+    padding-right: 5%;
+    padding-left: 5%;
     gap: 10px;
     background-color: dimgrey;
     background-image: linear-gradient(to right, #329664, #326496);
@@ -40,7 +41,7 @@ body {
 }
 
 #form-Container form {
-    margin-top: -50px;
+    margin-top: 10px;
 }
 #toggle {
     display: flex;

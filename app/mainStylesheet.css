@@ -59,23 +59,23 @@ margin-top: -20px;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 2.5%;
     background-color: rgb(60, 60, 60);
-    background-image: repeating-linear-gradient(110deg,rgb(60, 60, 60) ,rgb(45, 50, 50) 1%,rgb(50, 55, 55) 5px,rgb(60, 60, 60) 1.5%,rgb(60, 60, 60) 2%);
+    background-image: repeating-linear-gradient(110deg,rgb(60, 60, 60) ,rgb(50, 53, 53) 1%,rgb(53, 56, 56) 5px,rgb(60, 60, 60) 1.5%,rgb(60, 60, 60) 2%);
     grid-column-end: span 3;
     border-radius: 20px;
     padding: 20px;
 }
 @media only screen and (max-width: 1450px) {
-    #library {
+    .library {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 @media only screen and (max-width: 1000px) {
-    #library {
+    .library {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 @media only screen and (max-width: 670px) {
-    #library {
+    .library {
         grid-template-columns: repeat(1, 1fr);
     }
 }
@@ -169,11 +169,15 @@ img {
     object-fit: cover;
     border-radius: 20px;
 }
-
+#pic {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    margin-top: 30px;
+}
 #game-pic {
+    position: relative;
     height: 300px;
     width: 300px;
-    margin-left: 38.5%;
     z-index: 10;
     margin-top: -20px;
 }
@@ -202,7 +206,7 @@ img {
     width: 100%;
 }
 #gameDetails > #wishlist button{
-    margin-top: 10px;
+    margin-top: -20px;
     padding: 20px;
     box-sizing: border-box;
     border-radius: 100px;
@@ -218,12 +222,17 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 10px;
+    margin-left: 10px;
     width: 150px;
     height: 60px;
-    border-radius: 10px;
-    color: greenyellow;
+    border-radius: 20px;
+    color: white;
     text-align: center;
     cursor: pointer;
+    font-weight: bolder;
+    font-size: 20px;
+    background-image: linear-gradient(to right, #329664, #326496);
 }
 
 

@@ -87,12 +87,11 @@ class UserManager
             $checkStmt->bindParam(':user_id', $user_id);
             $checkStmt->bindParam(':game_id', $game_id);
             $checkStmt->execute();
-            echo "hi";
 
             $count = $checkStmt->fetchColumn();
 
             if ($count > 0) {
-                echo "Game is already in library.";
+                return "Game is already in library.";
             } else {
                 // insert game into user_games table using the same database
                 $sql = "INSERT INTO user_games.user_games (user_id, game_id) VALUES (:user_id, :game_id)";  // Same database as getMyGames
@@ -102,7 +101,7 @@ class UserManager
                 $stmt->execute();
             }
         } catch(PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            return "Error: " . $e->getMessage();
         }
     }
 
@@ -115,8 +114,8 @@ class UserManager
         }
 
         try {
-            // Fetch only the game IDs associated with the current user
-            $sql = "SELECT ug.game_id FROM user_games.user_games ug WHERE ug.user_id = :user_id";
+            // get game ids from the current user
+            $sql = "SELECT user_games.game_id FROM user_games.user_games user_games WHERE user_games.user_id = :user_id";
 
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
@@ -127,23 +126,57 @@ class UserManager
                 return [];
             }
 
-            // Now fetch game details for the game IDs retrieved
+            // creates an array with values of '?'
             $placeholders = implode(',', array_fill(0, count($game_ids), '?'));
-            $sql = "SELECT * FROM gamelibrary.games WHERE id IN ($placeholders)"; // Query to get details for those game IDs
+            $sql = "SELECT * FROM gamelibrary.games WHERE id IN ($placeholders)";
 
             $stmt = $this->conn->prepare($sql);
             $stmt->execute($game_ids);
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            // Create Game objects for each game
+            // create Game objects for each game
             foreach ($result as $row) {
                 $game = new Game($row);
                 $user_games[] = $game;
             }
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            return "Error: " . $e->getMessage();
         }
 
         return $user_games;
     }
+
+
+
+    public function removeFromMyLibrary($game_id) {
+
+        $user_id = $_SESSION['user_id'];
+
+        // Use prepared statement to avoid SQL injection
+        try {
+            // Prepare the SQL query
+            $stmt = $this->conn->prepare("DELETE FROM user_games.user_games WHERE game_id = :game_id AND user_id = :user_id");
+            // Bind parameters
+            $stmt->bindParam(':game_id', $game_id, PDO::PARAM_INT);
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->execute();
+            // Execute the query
+                return "Game successfully removed from your library.";
+        } catch (PDOException $e) {
+            return "Error: " . $e->getMessage();
+        }
+    }
+
+
+    public function removeFromLibrary($game_id) {
+        $sql = "DELETE FROM games WHERE id = $game_id";
+
+        // Execute the query
+        if ($this->conn->query($sql)) {
+        } else {
+            return "Error deleting game: " . $this->conn->error;
+        }
+
+    }
+
 }

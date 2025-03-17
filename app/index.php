@@ -10,7 +10,12 @@
             header("Location: login.php");
             exit();
         }
+        if (isset($_POST['myLibrary'])) {
+            header("Location: myLibrary.php");
+            exit();
+        }
     }
+
     if (!isset($_SESSION['username']) || $_SESSION['username'] == "") {
         header('Location: login.php');
         exit();
@@ -59,7 +64,6 @@
             </form>
         </div>
         <h1> Game Library </h1>
-        <h3> Ziet er slecht uit toch? </h3>
     </div>
 
    

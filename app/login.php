@@ -22,9 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     } elseif (isset($_POST['submit']) && $_POST['submit'] === 'Sign Up') {
         $username = $_POST['username'];
-        $password = $_POST['password'];
-//        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $um->insert(['username' => $username, 'password' => $password]);
+        if (preg_match('/^.{6,}$/', $_POST['password'])) {
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $um->insert(['username' => $username, 'password' => $password]);
+        }
     }
 }
 
@@ -40,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
 <iframe height="80px" width="300px" frameborder="0" src=https://livecounts.io/embed/youtube-live-subscriber-counter/UCojBmluqa5vb6oTHKqIMh6g style="border: 0; width:300px; height:80px;"></iframe>
-<iframe height="80px" width="300px" frameborder="0" src=https://livecounts.io/embed/youtube-live-subscriber-counter/UCW8Y4FvpRw0qEamIzdYSakA style="border: 0; width:300px; height:80px;"></iframe>
 
     <div id="toggle">
         <button id="logIn" style="display: none">Log In</button>
