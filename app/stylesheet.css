@@ -6,7 +6,7 @@ body {
 #form-Container{
     text-align: center;
     width: calc(20% + 200px);
-    height: 250px;
+    height: 300px;
     margin-left: calc(35% - 100px);
     margin-top: 100px;
     border-radius: 30px;
@@ -30,10 +30,12 @@ body {
 
 #form-Container .submit{
     background-color: #9696ff;
+    margin-top: 40px;
     font-size: 20px;
     font-weight: bolder;
     color: white;
     width: 100px;
+    cursor: pointer;
 }
 
 #form-Container h1 {
@@ -58,6 +60,7 @@ body {
     font-weight: bolder;
     font-size: 20px;
     background-image: linear-gradient(to right, #329664, #326496);
+    cursor: pointer;
 }
 
 #errorMessage {

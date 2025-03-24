@@ -14,6 +14,10 @@
             header("Location: myLibrary.php");
             exit();
         }
+        if (isset($_POST['profile'])) {
+            header("Location: editProfile.php");
+            exit();
+        }
     }
 
     if (!isset($_SESSION['username']) || $_SESSION['username'] == "") {
@@ -59,8 +63,9 @@
     <div id= "header">
         <div id="toggle">
             <form method="POST">
-                <button id="myLibrary" type="submit" name="myLibrary">My Library</button>
                 <button id="logOut" type="submit" name="log_out">Log Out</button>
+                <button id="profile" type="submit" name="profile">Profile</button>
+                <button id="myLibrary" type="submit" name="myLibrary">My Library</button>
             </form>
         </div>
         <h1> Game Library </h1>

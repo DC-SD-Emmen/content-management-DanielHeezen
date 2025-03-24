@@ -17,8 +17,6 @@ class UserManager
         $password = $data['password'];
 
 
-        $sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
-
         try {
             $stmt = $this->conn->prepare("SELECT * FROM users WHERE username = :username");
             $stmt->bindParam(':username', $username);
@@ -29,7 +27,7 @@ class UserManager
                 return "Username already exists, try logging in.";
             }
 
-            $stmt = $this->conn->prepare($sql);
+            $stmt = $this->conn->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
             // bind parameter to have no sql injection
             $stmt->bindParam(':username', $username);
             $stmt->bindParam(':password', $password);
@@ -178,5 +176,84 @@ class UserManager
         }
 
     }
+
+    public function removeUserGames() {
+
+        $user_id = $_SESSION['user_id'];
+
+        // Use prepared statement to avoid SQL injection
+        try {
+            // Prepare the SQL query
+            $stmt = $this->conn->prepare("DELETE FROM user_games.user_games WHERE user_id = :user_id");
+            // Bind parameters
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->execute();
+            // Execute the query
+        } catch (PDOException $e) {
+            return "Error: " . $e->getMessage();
+        }
+    }
+
+    public function removeUser() {
+
+        $user_id = $_SESSION['user_id'];
+
+        // Use prepared statement to avoid SQL injection
+        try {
+            $stmt = $this->conn->prepare("DELETE FROM users WHERE id = :user_id");
+            // Bind parameters
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->execute();
+            // Execute the query
+        } catch (PDOException $e) {
+            return "Error: " . $e->getMessage();
+        }
+    }
+
+
+
+
+
+
+
+    public function updateProfile($username, $password, $passwordCheck) {
+        $user_id = $_SESSION['user_id']; // Get user ID from session
+
+        try {
+            // Fetch the current hashed password from the database
+            $stmt = $this->conn->prepare("SELECT password FROM users WHERE id = :user_id");
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->execute();
+            $currentPassword = $stmt->fetchColumn(); // Get hashed password from DB
+
+            // Verify if the entered password and the one in database are the same
+            if (!password_verify($passwordCheck, $currentPassword)) {
+                return "Error: Current password is incorrect.";
+            }
+
+
+            $stmt = $this->conn->prepare("SELECT COUNT(*) FROM users WHERE username = :username AND id != :user_id");
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            if ($stmt->fetchColumn() > 0) {
+                return "Error: Username already taken.";
+            }
+            
+
+            $stmt = $this->conn->prepare("UPDATE users SET password = :password, username = :username WHERE id = :user_id");
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+            $stmt->execute();
+
+            return "Success: Profile updated successfully.";
+        } catch (PDOException $e) {
+            return "Error: " . $e->getMessage();
+        }
+    }
+
+
 
 }

@@ -22,7 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     } elseif (isset($_POST['submit']) && $_POST['submit'] === 'Sign Up') {
         $username = $_POST['username'];
-        if (preg_match('/^.{6,}$/', $_POST['password'])) {
+//        --- Regex ---
+        if (preg_match('/^.{5,}$/', $_POST['password'])) {
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
             $um->insert(['username' => $username, 'password' => $password]);
         }

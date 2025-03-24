@@ -78,7 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </form>
         </div>
         <h1> Game Library </h1>
-        <h3> Ziet er slecht uit toch? </h3>
     </div>
 
    

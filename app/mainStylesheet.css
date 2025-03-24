@@ -1,9 +1,8 @@
 body {
-    background-color: black;
+    background-color: rgb(30, 30, 30);
 }
 
 #backgroundContainer {
-    background-color: rgb(30, 30, 30);
     color: white;
 }
 
@@ -49,6 +48,7 @@ margin-top: -20px;
     font-weight: bolder;
     font-size: 20px;
     background-image: linear-gradient(to right, #329664, #326496);
+    cursor: pointer;
 }
 
 
@@ -172,7 +172,7 @@ img {
 }
 #pic {
     display: flex;
-    justify-content: center; /* Centers horizontally */
+    justify-content: center;
     margin-top: 30px;
 }
 #game-pic {
@@ -216,6 +216,7 @@ img {
     font-weight: bolder;
     font-size: 20px;
     background-image: linear-gradient(to right, #329664, #326496);
+    cursor: pointer;
 }
 
 
@@ -246,4 +247,52 @@ img {
     background-color: red;
     font-size: 30px;
     border-radius: 15px;
+    cursor: pointer;
+}
+
+
+
+/*edit profile page*/
+
+#editProfile-box{
+    text-align: center;
+    width: calc(20% + 200px);
+    height: 350px;
+    margin-left: calc(35% - 100px);
+    margin-top: 10px;
+    border-radius: 30px;
+    border-style: solid;
+    justify-content: center;
+    padding-right: 5%;
+    padding-left: 5%;
+    gap: 10px;
+    background-color: dimgrey;
+    background-image: linear-gradient(to right, #329664, #326496);
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.8), 0 0 10px rgba(52, 152, 219, 0.6), 0 0 15px rgba(52, 152, 219, 0.4);
+}
+
+#editProfile-box input{
+    margin-top: 10px;
+    padding: 2%;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 100px;
+}
+
+#editProfile-box .submit{
+    background-color: #9696ff;
+    margin-top: 40px;
+    font-size: 20px;
+    font-weight: bolder;
+    color: white;
+    width: 100px;
+    cursor: pointer;
+}
+
+#editProfile-box h1 {
+    color: white;
+}
+
+#editProfile-box form {
+    margin-top: 10px;
 }
