@@ -268,8 +268,7 @@ img {
 #editProfile{
     text-align: center;
     height: 400px;
-    width: calc(30% + 100px);
-    /*margin-left: calc(30% + 0px);*/
+    width: calc(25% + 175px);
     margin-top: 10px;
     border-radius: 30px;
     border-style: solid;
@@ -285,7 +284,7 @@ img {
     margin-top: 5px;
     padding: 10px;
     box-sizing: border-box;
-    width: calc(40% + 50px);
+    width: calc(50% + 50px);
     border-radius: 100px;
 }
 
