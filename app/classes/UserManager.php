@@ -210,50 +210,62 @@ class UserManager
         }
     }
 
-
-
-
-
-
-
     public function updateProfile($username, $password, $passwordCheck) {
-        $user_id = $_SESSION['user_id']; // Get user ID from session
+        $user_id = $_SESSION['user_id']; // Haal de user ID uit de sessie
+
+//        echo "user id: " . $user_id . "<br>";
 
         try {
-            // Fetch the current hashed password from the database
-            $stmt = $this->conn->prepare("SELECT password FROM users WHERE id = :user_id");
+            $this->conn->beginTransaction(); // Start transactie
+
+            // Haal het huidige versleutelde wachtwoord uit de database
+            $stmt = $this->conn->prepare("SELECT password FROM user_login.users WHERE id = :user_id");
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
             $stmt->execute();
-            $currentPassword = $stmt->fetchColumn(); // Get hashed password from DB
+            $currentPassword = $stmt->fetchColumn();
 
-            // Verify if the entered password and the one in database are the same
+            // Controleer of het ingevoerde wachtwoord overeenkomt met het opgeslagen wachtwoord
             if (!password_verify($passwordCheck, $currentPassword)) {
+                $this->conn->rollBack(); // Rollback bij fout
                 return "Error: Current password is incorrect.";
             }
 
+//            echo "password accepted <br>";
 
-            $stmt = $this->conn->prepare("SELECT COUNT(*) FROM users WHERE username = :username AND id != :user_id");
+            // Controleer of de gebruikersnaam al in gebruik is door een andere gebruiker
+            $stmt = $this->conn->prepare("SELECT COUNT(*) FROM user_login.users WHERE username = :username AND id != :user_id");
             $stmt->bindParam(':username', $username, PDO::PARAM_STR);
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
             $stmt->execute();
 
             if ($stmt->fetchColumn() > 0) {
+                $this->conn->rollBack(); // Rollback bij fout
                 return "Error: Username already taken.";
             }
-            
 
-            $stmt = $this->conn->prepare("UPDATE users SET password = :password, username = :username WHERE id = :user_id");
+//            echo "username accepted <br>";
+
+            // Versleutel het nieuwe wachtwoord voordat je het opslaat
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            // Werk de gebruikersgegevens bij
+            $stmt = $this->conn->prepare("UPDATE user_login.users SET password = :password, username = :username WHERE id = :user_id");
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
             $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+            $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
             $stmt->execute();
 
-            return "Success: Profile updated successfully.";
+            $this->conn->commit(); // Bevestig de transactie
+
+            $_SESSION['username'] = $username;
+//            echo "Update successful.";
+            return "Profile updated successfully.";
+
         } catch (PDOException $e) {
+            $this->conn->rollBack(); // Rollback bij een fout
+            echo "Error: " . $e->getMessage();
             return "Error: " . $e->getMessage();
         }
     }
-
-
 
 }

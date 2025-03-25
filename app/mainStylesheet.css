@@ -255,10 +255,16 @@ img {
 /*edit profile page*/
 
 #editProfile-box{
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 2.5%;
+    background-color: rgb(60, 60, 60);
+    background-image: repeating-linear-gradient(110deg,rgb(60, 60, 60) ,rgb(50, 53, 53) 1%,rgb(53, 56, 56) 5px,rgb(60, 60, 60) 1.5%,rgb(60, 60, 60) 2%);
+
     text-align: center;
-    width: calc(20% + 200px);
     height: 350px;
-    margin-left: calc(35% - 100px);
+    margin-left: 20px;
     margin-top: 10px;
     border-radius: 30px;
     border-style: solid;
@@ -282,10 +288,11 @@ img {
 #editProfile-box .submit{
     background-color: #9696ff;
     margin-top: 40px;
+    margin-left: 0px;
     font-size: 20px;
     font-weight: bolder;
     color: white;
-    width: 100px;
+    width: 180px;
     cursor: pointer;
 }
 

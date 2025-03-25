@@ -24,13 +24,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $db = new Database();
     $userManager = new UserManager($db->getConnection());
 
-    if (isset($_POST['updateProfile'])) {
-        if (isset($_SESSION['user_id'])) {
-            $userManager->updateProfile();
-        }
-        header("Location: index.php");
-        exit();
-    }
+//    if (isset($_POST['updateProfile'])) {
+//        if (isset($_SESSION['user_id'])) {
+//            $userManager->updateProfile();
+//        }
+//        header("Location: index.php");
+//        exit();
+//    }
 
     if (isset($_POST['removeUser'])) {
         if (isset($_SESSION['user_id'])) {
