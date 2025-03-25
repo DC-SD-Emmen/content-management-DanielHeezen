@@ -16,6 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: login.php");
         exit();
     }
+    if (isset($_POST['mainLibrary'])) {
+        header("Location: index.php");
+        exit();
+    }
+    if (isset($_POST['profile'])) {
+        header("Location: editProfile.php");
+        exit();
+    }
     if (isset($_POST['go-back'])) {
         header("Location: index.php");
         exit();
@@ -83,8 +91,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div id="toggle">
             <form method="POST">
                 <button id="logOut" type="submit" name="log_out">Log Out</button>
+                <button id="profile" type="submit" name="profile">Profile</button>
+                <button id="myLibrary" type="submit" name="mainLibrary">Main Library</button>
             </form>
         </div>
+        <h1> Profile </h1>
     </div>
 
 
@@ -105,21 +116,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
 
-        <div class= "library">
+        <div id= "editProfile-box">
             <form method="POST" id="go-back">
                 <button class="back-button" name="go-back">< Back</button>
-
-                <div id="editProfile-box">
-                    <form method="POST">
-                        <h1>Edit Profile</h1>
-                        <div><input class="username" name="username" placeholder="Username" required></div>
-                        <div><input class="password" name="password" type="password" placeholder="Password" required></div>
-                        <h2>Verify:</h2>
-                        <div><input class="password" name="passwordCheck" type="password" placeholder="Password"></div>
-                        <div><input class="submit" name="changePassword" type="submit" value="Change Profile" ></div>
-                    </form>
-                </div>
             </form>
+            <div id="editProfile">
+                <form method="POST">
+                    <h1>Edit Profile</h1>
+                    <div><input class="username" name="username" placeholder="Username" required></div>
+                    <div><input class="password" name="password" type="password" placeholder="Password" required></div>
+                    <h2>Verify:</h2>
+                    <div><input class="password" name="passwordCheck" type="password" placeholder="Password"></div>
+                    <div><input class="submit" name="changePassword" type="submit" value="Change Profile" ></div>
+                </form>
+            </div>
         </div>
 
 

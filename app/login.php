@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </head>
 
 <body>
-<iframe height="80px" width="300px" frameborder="0" src=https://livecounts.io/embed/youtube-live-subscriber-counter/UCojBmluqa5vb6oTHKqIMh6g style="border: 0; width:300px; height:80px;"></iframe>
+<!--<iframe height="80px" width="300px" frameborder="0" src=https://livecounts.io/embed/youtube-live-subscriber-counter/UCojBmluqa5vb6oTHKqIMh6g style="border: 0; width:300px; height:80px;"></iframe>-->
 
     <div id="toggle">
         <button id="logIn" style="display: none">Log In</button>

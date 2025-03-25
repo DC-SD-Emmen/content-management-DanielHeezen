@@ -16,6 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: login.php");
         exit();
     }
+    if (isset($_POST['mainLibrary'])) {
+        header("Location: myLibrary.php");
+        exit();
+    }
+    if (isset($_POST['profile'])) {
+        header("Location: editProfile.php");
+        exit();
+    }
 
     $db = new Database();
     $userManager = new UserManager($db->getConnection());
@@ -75,6 +83,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div id="toggle">
             <form method="POST">
                 <button id="logOut" type="submit" name="log_out">Log Out</button>
+                <button id="profile" type="submit" name="profile">Profile</button>
+                <button id="myLibrary" type="submit" name="mainLibrary">My Library</button>
             </form>
         </div>
         <h1> Game Library </h1>

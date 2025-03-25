@@ -200,7 +200,7 @@ class UserManager
 
         // Use prepared statement to avoid SQL injection
         try {
-            $stmt = $this->conn->prepare("DELETE FROM users WHERE id = :user_id");
+            $stmt = $this->conn->prepare("DELETE FROM user_login.users WHERE id = :user_id");
             // Bind parameters
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
             $stmt->execute();

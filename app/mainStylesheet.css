@@ -186,6 +186,7 @@ img {
 #game-info {
     color: rgb(163, 255, 67);
     font-size: 14px;
+    padding-bottom: 50px;
 }
 
 #gameDetails {
@@ -193,7 +194,7 @@ img {
     background-color: rgb(60, 60, 60);
     grid-column-end: span 3;
     border-radius: 20px; 
-    height: 700px;
+    height: 650px;
 }
 
 #gameDetails > a {
@@ -245,7 +246,7 @@ img {
 .delete {
     color: white;
     background-color: red;
-    font-size: 30px;
+    font-size: 25px;
     border-radius: 15px;
     cursor: pointer;
 }
@@ -254,52 +255,55 @@ img {
 
 /*edit profile page*/
 
-#editProfile-box{
 
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 2.5%;
+
+
+
+#editProfile-box {
     background-color: rgb(60, 60, 60);
     background-image: repeating-linear-gradient(110deg,rgb(60, 60, 60) ,rgb(50, 53, 53) 1%,rgb(53, 56, 56) 5px,rgb(60, 60, 60) 1.5%,rgb(60, 60, 60) 2%);
-
+    grid-column-end: span 3;
+    border-radius: 20px;
+}
+#editProfile{
     text-align: center;
-    height: 350px;
-    margin-left: 20px;
+    height: 400px;
+    width: calc(30% + 100px);
+    /*margin-left: calc(30% + 0px);*/
     margin-top: 10px;
     border-radius: 30px;
     border-style: solid;
+    border-color: rgb(103, 205, 7);
     justify-content: center;
-    padding-right: 5%;
-    padding-left: 5%;
+    justify-self: center;
     gap: 10px;
-    background-color: dimgrey;
-    background-image: linear-gradient(to right, #329664, #326496);
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.8), 0 0 10px rgba(52, 152, 219, 0.6), 0 0 15px rgba(52, 152, 219, 0.4);
+    background-color: rgb(50, 53, 53);
+    box-shadow: 0 0 5px rgba(52, 219, 152, 0.8), 0 0 10px rgba(52, 219, 152, 0.6), 0 0 15px rgba(52, 219, 152, 0.4);
 }
 
-#editProfile-box input{
-    margin-top: 10px;
-    padding: 2%;
+#editProfile input{
+    margin-top: 5px;
+    padding: 10px;
     box-sizing: border-box;
-    width: 100%;
+    width: calc(40% + 50px);
     border-radius: 100px;
 }
 
-#editProfile-box .submit{
+#editProfile .submit{
     background-color: #9696ff;
-    margin-top: 40px;
+    margin-top: 20px;
     margin-left: 0px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bolder;
     color: white;
     width: 180px;
     cursor: pointer;
 }
 
-#editProfile-box h1 {
+#editProfile h1 {
     color: white;
 }
 
-#editProfile-box form {
+#editProfile form {
     margin-top: 10px;
 }
